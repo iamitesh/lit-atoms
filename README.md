@@ -1,26 +1,56 @@
 # lit-atoms
 
-A modern web component library built with Lit Elements. This library provides 15 reusable, customizable UI components with Storybook documentation.
+A modern web component library built with Lit Elements. This library provides 35 reusable, customizable UI components with Storybook documentation.
 
 ## Components
 
 This library includes the following components:
 
+### Form Components
 1. **Button** - Primary and secondary buttons with multiple sizes
 2. **Input Field** - Text input with validation and helper text
 3. **Checkbox** - Checkbox input with label
 4. **Radio** - Radio button with label
 5. **Textarea** - Multi-line text input
 6. **Toggle** - Switch/toggle component
-7. **Badge** - Status badges with multiple variants
-8. **Banner** - Notification banners with different states
-9. **Card** - Container component with header and footer
-10. **Dropdown** - Select dropdown with options
-11. **Tooltip** - Hover tooltips with multiple positions
-12. **Spinner** - Loading spinner in multiple sizes
-13. **Progress Bar** - Progress indicator with variants
-14. **Divider** - Horizontal and vertical dividers
-15. **Chip** - Tag/chip component with removable option
+7. **Dropdown** - Select dropdown with options
+8. **Form** - Form container with validation
+
+### Display Components
+9. **Badge** - Status badges with multiple variants
+10. **Banner** - Notification banners with different states
+11. **Card** - Container component with header and footer
+12. **Tooltip** - Hover tooltips with multiple positions
+13. **Spinner** - Loading spinner in multiple sizes
+14. **Progress Bar** - Progress indicator with variants
+15. **Divider** - Horizontal and vertical dividers
+16. **Chip** - Tag/chip component with removable option
+17. **Avatar** - User avatar/profile image
+18. **Alert** - Alert/notification message
+
+### Layout Components
+19. **Header** - Page header with logo, title, and actions
+20. **Footer** - Page footer with links and copyright
+21. **Navigation** - Navigation menu with items
+22. **Sidebar** - Side navigation panel
+23. **Modal** - Modal/dialog overlay
+
+### Navigation Components
+24. **Breadcrumb** - Navigation breadcrumb trail
+25. **Pagination** - Page navigation component
+26. **Tabs** - Tabbed content interface
+27. **Menu** - Dropdown/context menu
+28. **Link** - Styled hyperlink component
+
+### Content Components
+29. **Accordion** - Collapsible content sections
+30. **List** - Ordered/unordered list component
+31. **Table** - Data table component
+32. **Table Header** - Table header row
+33. **Table Body** - Table body container
+34. **Table Row** - Table row component
+35. **Table Header Cell** - Table header cell with sorting
+36. **Table Cell** - Table data cell
 
 ## Installation
 
