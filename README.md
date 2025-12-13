@@ -92,6 +92,8 @@ npm run build-storybook
 
 ## Usage
 
+### Web Components (Vanilla JS/HTML)
+
 Import components in your project:
 
 ```javascript
@@ -107,6 +109,68 @@ Use in HTML:
 <lit-input-field label="Email" type="email" placeholder="Enter email"></lit-input-field>
 <lit-checkbox label="Accept terms" checked></lit-checkbox>
 ```
+
+### Framework Wrappers
+
+Lit Atoms provides official framework wrappers for **React** and **Angular** to make integration seamless:
+
+#### React
+
+```bash
+npm install lit-atoms @lit-atoms/react react react-dom
+```
+
+```tsx
+import { LitButtonReact, LitInputFieldReact } from '@lit-atoms/react';
+
+function App() {
+  return (
+    <div>
+      <LitButtonReact 
+        label="Click me" 
+        variant="primary"
+        onButtonClick={(e) => console.log('Clicked!', e.detail)}
+      />
+      <LitInputFieldReact
+        label="Email"
+        type="email"
+        placeholder="Enter email"
+        onInputChange={(e) => console.log(e.detail.value)}
+      />
+    </div>
+  );
+}
+```
+
+#### Angular
+
+```bash
+npm install lit-atoms @lit-atoms/angular @angular/core @angular/forms
+```
+
+```typescript
+import { LitInputFieldDirective, LitCheckboxDirective } from '@lit-atoms/angular';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [ReactiveFormsModule, LitInputFieldDirective, LitCheckboxDirective],
+  template: `
+    <form [formGroup]="form">
+      <lit-input-field formControlName="email" label="Email"></lit-input-field>
+      <lit-checkbox formControlName="agree" label="I agree"></lit-checkbox>
+    </form>
+  `
+})
+export class AppComponent {
+  form = this.fb.group({
+    email: ['', Validators.required],
+    agree: [false]
+  });
+}
+```
+
+For detailed documentation on framework wrappers, see [wrappers/README.md](./wrappers/README.md).
 
 ## Component Properties
 

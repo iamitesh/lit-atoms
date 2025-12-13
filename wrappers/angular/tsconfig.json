@@ -15,7 +15,11 @@
     "forceConsistentCasingInFileNames": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "baseUrl": ".",
+    "paths": {
+      "lit-atoms": ["../../dist/index.d.ts"]
+    }
   },
   "angularCompilerOptions": {
     "strictTemplates": true,

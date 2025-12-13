@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { LitCheckbox } from '../../../src/components/checkbox.js';
+import { LitCheckbox } from 'lit-atoms';
 import { createComponent } from './createComponent.js';
 
 /**
