@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lit Atoms Playground</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      height: 100vh;
+      overflow: hidden;
+      background: #f5f5f5;
+    }
+
+    .playground-container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    .header {
+      background: #1ea7fd;
+      color: white;
+      padding: 15px 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header h1 {
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .header-actions button,
+    .header-actions select {
+      padding: 8px 16px;
+      background: white;
+      color: #1ea7fd;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .header-actions button:hover,
+    .header-actions select:hover {
+      background: #f0f0f0;
+    }
+
+    .content {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .editor-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: #1e1e1e;
+      border-right: 1px solid #ccc;
+    }
+
+    .panel-header {
+      background: #2d2d2d;
+      color: white;
+      padding: 10px 15px;
+      font-size: 14px;
+      font-weight: 500;
+      border-bottom: 1px solid #3e3e3e;
+    }
+
+    #editor {
+      flex: 1;
+      padding: 15px;
+      background: #1e1e1e;
+      color: #d4d4d4;
+      font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      overflow: auto;
+      border: none;
+      outline: none;
+      resize: none;
+      tab-size: 2;
+    }
+
+    .right-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .preview-panel {
+      flex: 2;
+      display: flex;
+      flex-direction: column;
+      background: white;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .preview-content {
+      flex: 1;
+      padding: 20px;
+      overflow: auto;
+    }
+
+    .console-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: #252526;
+      min-height: 200px;
+    }
+
+    .console-header {
+      background: #2d2d2d;
+      color: white;
+      padding: 10px 15px;
+      font-size: 14px;
+      font-weight: 500;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #3e3e3e;
+    }
+
+    .console-clear {
+      background: transparent;
+      color: white;
+      border: none;
+      cursor: pointer;
+      padding: 5px 10px;
+      border-radius: 3px;
+      font-size: 12px;
+    }
+
+    .console-clear:hover {
+      background: #3e3e3e;
+    }
+
+    .console-content {
+      flex: 1;
+      padding: 10px 15px;
+      overflow: auto;
+      font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .console-entry {
+      padding: 4px 0;
+      border-bottom: 1px solid #333;
+    }
+
+    .console-entry.log {
+      color: #cccccc;
+    }
+
+    .console-entry.error {
+      color: #f48771;
+    }
+
+    .console-entry.warn {
+      color: #cca700;
+    }
+
+    .console-entry.info {
+      color: #75beff;
+    }
+
+    .resizer {
+      width: 5px;
+      cursor: col-resize;
+      background: #ccc;
+      position: relative;
+    }
+
+    .resizer:hover {
+      background: #999;
+    }
+
+    /* Syntax highlighting for editor */
+    #editor {
+      white-space: pre;
+    }
+  </style>
+</head>
+<body>
+  <div class="playground-container">
+    <div class="header">
+      <h1>⚛️ Lit Atoms Playground</h1>
+      <div class="header-actions">
+        <select id="componentSelect">
+          <option value="">Select a component example...</option>
+          <option value="button">Button</option>
+          <option value="input">Input Field</option>
+          <option value="card">Card</option>
+          <option value="badge">Badge</option>
+          <option value="alert">Alert</option>
+          <option value="checkbox">Checkbox</option>
+          <option value="toggle">Toggle</option>
+          <option value="spinner">Spinner</option>
+          <option value="tabs">Tabs</option>
+          <option value="modal">Modal</option>
+          <option value="table">Table</option>
+          <option value="form">Form</option>
+        </select>
+        <button id="runBtn">▶️ Run</button>
+        <button id="resetBtn">🔄 Reset</button>
+      </div>
+    </div>
+    
+    <div class="content">
+      <div class="editor-panel">
+        <div class="panel-header" id="editor-label">Editor - Write your HTML/JavaScript</div>
+        <textarea 
+          id="editor" 
+          spellcheck="false" 
+          role="textbox" 
+          aria-label="Code editor for writing HTML and JavaScript" 
+          aria-describedby="editor-label"
+          aria-multiline="true"
+        ></textarea>
+      </div>
+      
+      <div class="resizer" id="resizer"></div>
+      
+      <div class="right-panel">
+        <div class="preview-panel">
+          <div class="panel-header">Preview - Live Component Output</div>
+          <div class="preview-content" id="preview"></div>
+        </div>
+        
+        <div class="console-panel">
+          <div class="console-header">
+            <span>Console</span>
+            <button class="console-clear" id="clearConsole">Clear</button>
+          </div>
+          <div class="console-content" id="console"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

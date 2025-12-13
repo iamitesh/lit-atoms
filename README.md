@@ -60,6 +60,14 @@ npm install
 
 ## Development
 
+### Run Playground
+
+```bash
+npm run playground
+```
+
+This will start the interactive playground on `http://localhost:3000` where you can write and test components in real-time with a live editor, preview panel, and console.
+
 ### Run Storybook
 
 ```bash
