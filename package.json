@@ -2,11 +2,33 @@
   "name": "lit-atoms",
   "version": "1.0.0",
   "description": "A web component library built with Lit Elements",
+  "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./react": {
+      "types": "./wrappers/react/dist/index.d.ts",
+      "import": "./wrappers/react/dist/index.js",
+      "default": "./wrappers/react/dist/index.js"
+    },
+    "./angular": {
+      "types": "./wrappers/angular/dist/index.d.ts",
+      "import": "./wrappers/angular/dist/index.js",
+      "default": "./wrappers/angular/dist/index.js"
+    }
+  },
   "scripts": {
     "build": "tsc",
+    "build:wrappers": "npm run build:react && npm run build:angular",
+    "build:react": "cd wrappers/react && npm install && npm run build",
+    "build:angular": "cd wrappers/angular && npm install && npm run build",
+    "build:all": "npm run build && npm run build:wrappers",
     "dev": "tsc --watch",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
