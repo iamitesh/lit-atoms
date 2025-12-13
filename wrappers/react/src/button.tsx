@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { LitButton } from '../../../src/components/button.js';
+import { LitButton } from 'lit-atoms';
 import { createComponent } from './createComponent.js';
 
 /**

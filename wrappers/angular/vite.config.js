@@ -10,12 +10,17 @@ export default defineConfig({
       fileName: () => 'index.js',
     },
     rollupOptions: {
-      external: ['@angular/core', '@angular/forms', 'lit', 'rxjs'],
+      external: ['@angular/core', '@angular/forms', 'lit', 'rxjs', 'lit-atoms'],
       output: {
         preserveModules: false,
       },
     },
     outDir: 'dist',
     emptyOutDir: true,
+  },
+  resolve: {
+    alias: {
+      'lit-atoms': resolve(__dirname, '../../dist'),
+    },
   },
 });

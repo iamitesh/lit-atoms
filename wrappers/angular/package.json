@@ -23,9 +23,7 @@
     "@angular/core": ">=14.0.0",
     "@angular/forms": ">=14.0.0"
   },
-  "dependencies": {
-    "lit-atoms": "workspace:*"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@angular/core": "^19.0.0",
     "@angular/forms": "^19.0.0",

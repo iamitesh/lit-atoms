@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { LitInputField } from '../../../src/components/input-field.js';
+import { LitInputField } from 'lit-atoms';
 import { createComponent } from './createComponent.js';
 
 /**

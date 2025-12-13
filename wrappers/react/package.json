@@ -24,8 +24,7 @@
     "react-dom": ">=16.8.0"
   },
   "dependencies": {
-    "@lit/react": "^1.0.5",
-    "lit-atoms": "workspace:*"
+    "@lit/react": "^1.0.5"
   },
   "devDependencies": {
     "@types/react": "^18.2.0",
