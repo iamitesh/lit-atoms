@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../src/components/header';
+import '../src/components/button';
 
 const meta: Meta = {
   title: 'Components/Header',
