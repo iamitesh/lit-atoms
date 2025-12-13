@@ -20,6 +20,8 @@ export default defineConfig({
   },
   resolve: {
     alias: {
+      // Reference the parent project's dist directory
+      // This is intentional as wrappers are part of the same project
       'lit-atoms': resolve(__dirname, '../../dist'),
     },
   },

@@ -17,6 +17,8 @@
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "paths": {
+      // Reference the parent project's type declarations
+      // This is intentional as wrappers are part of the same project
       "lit-atoms": ["../../dist/index.d.ts"]
     }
   },
