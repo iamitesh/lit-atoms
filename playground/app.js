@@ -1,40 +1,40 @@
 // Import all lit-atoms components
-import '../src/components/button.js';
-import '../src/components/input-field.js';
-import '../src/components/checkbox.js';
-import '../src/components/radio.js';
-import '../src/components/textarea.js';
-import '../src/components/toggle.js';
-import '../src/components/badge.js';
-import '../src/components/banner.js';
-import '../src/components/card.js';
-import '../src/components/dropdown.js';
-import '../src/components/tooltip.js';
-import '../src/components/spinner.js';
-import '../src/components/progress-bar.js';
-import '../src/components/divider.js';
-import '../src/components/chip.js';
-import '../src/components/header.js';
-import '../src/components/footer.js';
-import '../src/components/navigation.js';
-import '../src/components/accordion.js';
-import '../src/components/table.js';
-import '../src/components/table-header.js';
-import '../src/components/table-body.js';
-import '../src/components/table-row.js';
-import '../src/components/table-header-cell.js';
-import '../src/components/table-cell.js';
-import '../src/components/modal.js';
-import '../src/components/alert.js';
-import '../src/components/breadcrumb.js';
-import '../src/components/pagination.js';
-import '../src/components/tabs.js';
-import '../src/components/sidebar.js';
-import '../src/components/avatar.js';
-import '../src/components/menu.js';
-import '../src/components/form.js';
-import '../src/components/link.js';
-import '../src/components/list.js';
+import '../src/components/button.ts';
+import '../src/components/input-field.ts';
+import '../src/components/checkbox.ts';
+import '../src/components/radio.ts';
+import '../src/components/textarea.ts';
+import '../src/components/toggle.ts';
+import '../src/components/badge.ts';
+import '../src/components/banner.ts';
+import '../src/components/card.ts';
+import '../src/components/dropdown.ts';
+import '../src/components/tooltip.ts';
+import '../src/components/spinner.ts';
+import '../src/components/progress-bar.ts';
+import '../src/components/divider.ts';
+import '../src/components/chip.ts';
+import '../src/components/header.ts';
+import '../src/components/footer.ts';
+import '../src/components/navigation.ts';
+import '../src/components/accordion.ts';
+import '../src/components/table.ts';
+import '../src/components/table-header.ts';
+import '../src/components/table-body.ts';
+import '../src/components/table-row.ts';
+import '../src/components/table-header-cell.ts';
+import '../src/components/table-cell.ts';
+import '../src/components/modal.ts';
+import '../src/components/alert.ts';
+import '../src/components/breadcrumb.ts';
+import '../src/components/pagination.ts';
+import '../src/components/tabs.ts';
+import '../src/components/sidebar.ts';
+import '../src/components/avatar.ts';
+import '../src/components/menu.ts';
+import '../src/components/form.ts';
+import '../src/components/link.ts';
+import '../src/components/list.ts';
 
 // Component examples
 const examples = {
@@ -453,7 +453,9 @@ function runCode() {
     // Execute scripts
     scripts.forEach(scriptContent => {
       try {
-        // Create a function with the preview as context
+        // Note: Using Function constructor for code execution in playground environment.
+        // This is intentional for the interactive playground use case.
+        // Users should only run code they trust.
         const func = new Function('preview', scriptContent);
         func(preview);
       } catch (err) {
@@ -489,7 +491,7 @@ editor.addEventListener('input', () => {
   clearTimeout(debounceTimer);
   debounceTimer = setTimeout(() => {
     runCode();
-  }, 1000);
+  }, 500); // 500ms for responsive feedback
 });
 
 // Resizer functionality
@@ -534,7 +536,8 @@ document.addEventListener('mouseup', () => {
 
 // Tab handling in editor
 editor.addEventListener('keydown', (e) => {
-  if (e.key === 'Tab') {
+  if (e.key === 'Tab' && !e.shiftKey) {
+    // Insert tab only if Shift is not pressed (allow Shift+Tab for navigation)
     e.preventDefault();
     const start = editor.selectionStart;
     const end = editor.selectionEnd;
@@ -542,6 +545,7 @@ editor.addEventListener('keydown', (e) => {
     editor.value = value.substring(0, start) + '  ' + value.substring(end);
     editor.selectionStart = editor.selectionEnd = start + 2;
   }
+  // Shift+Tab allows normal keyboard navigation
 });
 
 // Initial run

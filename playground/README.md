@@ -50,7 +50,7 @@ Use the dropdown menu in the header to load pre-built examples:
 
 ### 2. Edit the Code
 
-Type or modify HTML and JavaScript in the editor panel. The code will auto-execute after 1 second of inactivity.
+Type or modify HTML and JavaScript in the editor panel. The code will auto-execute after 500ms of inactivity for responsive feedback.
 
 ### 3. View the Preview
 
@@ -88,8 +88,9 @@ The console panel captures all `console.log()`, `console.error()`, `console.warn
 ### Code Editor
 
 - Dark theme for comfortable coding
-- Tab key support (inserts 2 spaces)
-- Auto-execution with 1-second debounce
+- Tab key support (inserts 2 spaces, Shift+Tab for navigation)
+- Auto-execution with 500ms debounce for responsive feedback
+- Accessible with ARIA labels for screen readers
 - Supports HTML, CSS (via `<style>` tags), and JavaScript (via `<script>` tags)
 
 ### Preview Panel

@@ -228,8 +228,15 @@
     
     <div class="content">
       <div class="editor-panel">
-        <div class="panel-header">Editor - Write your HTML/JavaScript</div>
-        <textarea id="editor" spellcheck="false"></textarea>
+        <div class="panel-header" id="editor-label">Editor - Write your HTML/JavaScript</div>
+        <textarea 
+          id="editor" 
+          spellcheck="false" 
+          role="textbox" 
+          aria-label="Code editor for writing HTML and JavaScript" 
+          aria-describedby="editor-label"
+          aria-multiline="true"
+        ></textarea>
       </div>
       
       <div class="resizer" id="resizer"></div>
