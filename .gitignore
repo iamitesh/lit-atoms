@@ -5,6 +5,7 @@ package-lock.json
 # Build outputs
 dist/
 storybook-static/
+playground-dist/
 
 # IDE
 .vscode/

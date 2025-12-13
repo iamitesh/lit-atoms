@@ -10,6 +10,8 @@
     "dev": "tsc --watch",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
+    "playground": "vite",
+    "build-playground": "vite build",
     "test": "echo \"No tests specified yet\" && exit 0"
   },
   "keywords": [
