@@ -15,8 +15,10 @@
     "test": "echo \"No tests specified yet\" && exit 0",
     "tokens:build": "node config/style-dictionary.config.mjs",
     "tokens:sync": "node scripts/sync-figma-tokens.mjs",
+    "tokens:test": "node scripts/test-integration.mjs",
     "figma:sync": "node scripts/figma-mcp.mjs",
-    "figma:status": "node scripts/figma-mcp.mjs status"
+    "figma:status": "node scripts/figma-mcp.mjs status",
+    "demo:integration": "bash scripts/demo-integration.sh"
   },
   "keywords": [
     "web-components",
