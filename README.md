@@ -112,6 +112,61 @@ Use in HTML:
 
 Each component is fully documented in Storybook with interactive controls. Run `npm run storybook` to explore all available properties and variants.
 
+## Agent-Ready Capability
+
+`lit-atoms` components are **agent-ready**, meaning they can be safely understood and controlled by AI assistants and automation agents. This capability includes:
+
+- **Standard semantics** via `data-*` attributes (`data-intent`, `data-entity`, `data-field`, etc.)
+- **State introspection** via `getState()` method
+- **Safe actions** via `getActions()` and `invokeAction()` with optional policy guardrails
+- **Unified events** - All components emit `atoms:event` for observability
+- **Manifest** - Machine-readable component catalog
+
+### Quick Example
+
+```html
+<lit-button 
+  id="submitBtn"
+  label="Submit Order" 
+  variant="primary"
+  data-intent="submit"
+  data-entity="order"
+></lit-button>
+
+<lit-input-field
+  id="emailInput"
+  label="Email"
+  type="email"
+  data-field="email"
+  data-purpose="authentication"
+></lit-input-field>
+
+<script type="module">
+  const btn = document.getElementById('submitBtn');
+  
+  // Introspect state
+  console.log(btn.getState());
+  
+  // Get available actions
+  console.log(btn.getActions());
+  
+  // Invoke action programmatically
+  await btn.invokeAction('click', null, { actor: 'agent' });
+  
+  // Listen to unified events
+  document.addEventListener('atoms:event', (e) => {
+    console.log('Atom event:', e.detail);
+  });
+</script>
+```
+
+### Documentation
+
+- [Overview](./docs/agent-ready/overview.md) - Concepts and quick examples
+- [Specification v0.1](./docs/agent-ready/spec-v0.1.md) - Full technical spec
+- [Manifest](./docs/agent-ready/manifest.md) - Component catalog and metadata
+- [Playground Console](./docs/agent-ready/playground-console.md) - Event logging panel
+
 ## Technologies
 
 - **Lit** - Fast, lightweight web components

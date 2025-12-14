@@ -140,6 +140,28 @@
       border-bottom: 1px solid #3e3e3e;
     }
 
+    .console-tab {
+      background: transparent;
+      color: #999;
+      border: none;
+      cursor: pointer;
+      padding: 8px 15px;
+      border-radius: 3px 3px 0 0;
+      font-size: 13px;
+      transition: all 0.2s;
+    }
+
+    .console-tab:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: #ccc;
+    }
+
+    .console-tab.active {
+      background: #3e3e3e;
+      color: white;
+      font-weight: 600;
+    }
+
     .console-clear {
       background: transparent;
       color: white;
@@ -182,6 +204,10 @@
 
     .console-entry.info {
       color: #75beff;
+    }
+
+    lit-atoms-console {
+      height: 100%;
     }
 
     .resizer {
@@ -249,10 +275,14 @@
         
         <div class="console-panel">
           <div class="console-header">
-            <span>Console</span>
+            <div style="display: flex; gap: 10px;">
+              <button class="console-tab active" id="jsConsoleTab">Console</button>
+              <button class="console-tab" id="atomsConsoleTab">⚛️ Atoms Events</button>
+            </div>
             <button class="console-clear" id="clearConsole">Clear</button>
           </div>
           <div class="console-content" id="console"></div>
+          <lit-atoms-console id="atomsConsole" style="display: none;"></lit-atoms-console>
         </div>
       </div>
     </div>
