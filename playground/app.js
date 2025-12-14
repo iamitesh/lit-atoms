@@ -36,6 +36,13 @@ import '../src/components/form.ts';
 import '../src/components/link.ts';
 import '../src/components/list.ts';
 
+// Import atoms console components
+import '../src/playground/lit-atoms-console.ts';
+import { installAtomsEventListener } from '../src/playground/atoms-event-listener.ts';
+
+// Install atoms event listener once
+installAtomsEventListener(document);
+
 // Component examples
 const examples = {
   button: `<!-- Button Examples -->
@@ -546,6 +553,26 @@ editor.addEventListener('keydown', (e) => {
     editor.selectionStart = editor.selectionEnd = start + 2;
   }
   // Shift+Tab allows normal keyboard navigation
+});
+
+// Console tab switching
+const jsConsoleTab = document.getElementById('jsConsoleTab');
+const atomsConsoleTab = document.getElementById('atomsConsoleTab');
+const jsConsole = document.getElementById('console');
+const atomsConsole = document.getElementById('atomsConsole');
+
+jsConsoleTab.addEventListener('click', () => {
+  jsConsoleTab.classList.add('active');
+  atomsConsoleTab.classList.remove('active');
+  jsConsole.style.display = 'block';
+  atomsConsole.style.display = 'none';
+});
+
+atomsConsoleTab.addEventListener('click', () => {
+  atomsConsoleTab.classList.add('active');
+  jsConsoleTab.classList.remove('active');
+  jsConsole.style.display = 'none';
+  atomsConsole.style.display = 'block';
 });
 
 // Initial run
