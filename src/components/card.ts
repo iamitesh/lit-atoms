@@ -1,5 +1,8 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css, unsafeCSS } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { defaultTheme } from '../theme/index.js';
+
+const theme = defaultTheme;
 
 @customElement('lit-card')
 export class LitCard extends LitElement {
@@ -9,32 +12,32 @@ export class LitCard extends LitElement {
     }
 
     .card {
-      font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      font-family: ${unsafeCSS(theme.base.typography.fontFamily)};
+      border-radius: ${unsafeCSS(theme.base.borderRadius.md)};
+      box-shadow: ${unsafeCSS(theme.base.shadows.sm)};
       overflow: hidden;
-      background-color: white;
+      background-color: ${unsafeCSS(theme.base.palette.background.default)};
     }
 
     .card.elevated {
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      box-shadow: ${unsafeCSS(theme.base.shadows.md)};
     }
 
     .card-header {
-      padding: 16px;
-      border-bottom: 1px solid #eee;
-      font-weight: 600;
-      font-size: 18px;
+      padding: ${unsafeCSS(theme.base.spacing.md)};
+      border-bottom: 1px solid ${unsafeCSS(theme.base.palette.divider)};
+      font-weight: ${unsafeCSS(theme.base.typography.fontWeightMedium)};
+      font-size: ${unsafeCSS(theme.base.typography.h6.fontSize)};
     }
 
     .card-content {
-      padding: 16px;
+      padding: ${unsafeCSS(theme.base.spacing.md)};
     }
 
     .card-footer {
-      padding: 16px;
-      border-top: 1px solid #eee;
-      background-color: #f9f9f9;
+      padding: ${unsafeCSS(theme.base.spacing.md)};
+      border-top: 1px solid ${unsafeCSS(theme.base.palette.divider)};
+      background-color: ${unsafeCSS(theme.base.palette.background.paper)};
     }
   `;
 

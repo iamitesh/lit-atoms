@@ -1,5 +1,8 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css, unsafeCSS } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { defaultTheme } from '../theme/index.js';
+
+const theme = defaultTheme;
 
 @customElement('lit-button')
 export class LitButton extends LitElement {
@@ -9,14 +12,14 @@ export class LitButton extends LitElement {
     }
 
     button {
-      font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-weight: 700;
+      font-family: ${unsafeCSS(theme.base.typography.fontFamily)};
+      font-weight: ${unsafeCSS(theme.base.typography.fontWeightBold)};
       border: 0;
-      border-radius: 3em;
+      border-radius: ${unsafeCSS(theme.base.borderRadius.full)};
       cursor: pointer;
       display: inline-block;
       line-height: 1;
-      transition: all 0.2s ease-in-out;
+      transition: all ${unsafeCSS(theme.base.transitions.duration.short)}ms ${unsafeCSS(theme.base.transitions.easing.easeInOut)};
     }
 
     button:hover {
@@ -28,14 +31,14 @@ export class LitButton extends LitElement {
     }
 
     .primary {
-      color: white;
-      background-color: #1ea7fd;
+      color: ${unsafeCSS(theme.base.palette.primary.contrastText)};
+      background-color: ${unsafeCSS(theme.base.palette.primary.main)};
     }
 
     .secondary {
-      color: #333;
+      color: ${unsafeCSS(theme.base.palette.text.primary)};
       background-color: transparent;
-      box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;
+      box-shadow: ${unsafeCSS(theme.base.palette.grey[400])} 0px 0px 0px 1px inset;
     }
 
     .small {

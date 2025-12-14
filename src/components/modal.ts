@@ -1,5 +1,8 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css, unsafeCSS } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
+import { defaultTheme } from '../theme/index.js';
+
+const theme = defaultTheme;
 
 @customElement('lit-modal')
 export class LitModal extends LitElement {
@@ -18,8 +21,8 @@ export class LitModal extends LitElement {
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 1000;
-      animation: fadeIn 0.2s ease-out;
+      z-index: ${unsafeCSS(theme.base.zIndex.modal)};
+      animation: fadeIn ${unsafeCSS(theme.base.transitions.duration.short)}ms ease-out;
     }
 
     @keyframes fadeIn {
@@ -32,13 +35,14 @@ export class LitModal extends LitElement {
     }
 
     .modal-content {
-      font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      background-color: white;
-      border-radius: 8px;
+      font-family: ${unsafeCSS(theme.base.typography.fontFamily)};
+      background-color: ${unsafeCSS(theme.base.palette.background.default)};
+      border-radius: ${unsafeCSS(theme.base.borderRadius.md)};
       max-width: 90%;
       max-height: 90vh;
       overflow: auto;
-      animation: slideDown 0.3s ease-out;
+      box-shadow: ${unsafeCSS(theme.base.shadows.xl)};
+      animation: slideDown ${unsafeCSS(theme.base.transitions.duration.standard)}ms ease-out;
     }
 
     @keyframes slideDown {
@@ -56,14 +60,14 @@ export class LitModal extends LitElement {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 20px 24px;
-      border-bottom: 1px solid #eee;
+      padding: ${unsafeCSS(theme.base.spacing.lg)};
+      border-bottom: 1px solid ${unsafeCSS(theme.base.palette.divider)};
     }
 
     .modal-title {
-      font-size: 20px;
-      font-weight: 600;
-      color: #333;
+      font-size: ${unsafeCSS(theme.base.typography.h5.fontSize)};
+      font-weight: ${unsafeCSS(theme.base.typography.fontWeightMedium)};
+      color: ${unsafeCSS(theme.base.palette.text.primary)};
     }
 
     .modal-close {
@@ -71,31 +75,31 @@ export class LitModal extends LitElement {
       border: none;
       font-size: 24px;
       cursor: pointer;
-      color: #666;
+      color: ${unsafeCSS(theme.base.palette.text.secondary)};
       padding: 0;
       width: 32px;
       height: 32px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 4px;
-      transition: background-color 0.2s;
+      border-radius: ${unsafeCSS(theme.base.borderRadius.sm)};
+      transition: background-color ${unsafeCSS(theme.base.transitions.duration.short)}ms;
     }
 
     .modal-close:hover {
-      background-color: #f5f5f5;
+      background-color: ${unsafeCSS(theme.base.palette.grey[100])};
     }
 
     .modal-body {
-      padding: 24px;
+      padding: ${unsafeCSS(theme.base.spacing.lg)};
     }
 
     .modal-footer {
-      padding: 16px 24px;
-      border-top: 1px solid #eee;
+      padding: ${unsafeCSS(theme.base.spacing.md)} ${unsafeCSS(theme.base.spacing.lg)};
+      border-top: 1px solid ${unsafeCSS(theme.base.palette.divider)};
       display: flex;
       justify-content: flex-end;
-      gap: 12px;
+      gap: ${unsafeCSS(theme.base.spacing.md)};
     }
 
     .modal-content.small {

@@ -1,5 +1,8 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css, unsafeCSS } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { defaultTheme } from '../theme/index.js';
+
+const theme = defaultTheme;
 
 @customElement('lit-badge')
 export class LitBadge extends LitElement {
@@ -9,43 +12,43 @@ export class LitBadge extends LitElement {
     }
 
     .badge {
-      font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 12px;
-      font-weight: 600;
-      padding: 4px 8px;
-      border-radius: 12px;
+      font-family: ${unsafeCSS(theme.base.typography.fontFamily)};
+      font-size: ${unsafeCSS(theme.base.typography.caption.fontSize)};
+      font-weight: ${unsafeCSS(theme.base.typography.fontWeightMedium)};
+      padding: ${unsafeCSS(theme.base.spacing.xs)} ${unsafeCSS(theme.base.spacing.sm)};
+      border-radius: ${unsafeCSS(theme.base.borderRadius.full)};
       display: inline-block;
       line-height: 1;
     }
 
     .primary {
-      background-color: #1ea7fd;
-      color: white;
+      background-color: ${unsafeCSS(theme.base.palette.primary.main)};
+      color: ${unsafeCSS(theme.base.palette.primary.contrastText)};
     }
 
     .success {
-      background-color: #4caf50;
-      color: white;
+      background-color: ${unsafeCSS(theme.base.palette.success.main)};
+      color: ${unsafeCSS(theme.base.palette.success.contrastText)};
     }
 
     .warning {
-      background-color: #ff9800;
-      color: white;
+      background-color: ${unsafeCSS(theme.base.palette.warning.main)};
+      color: ${unsafeCSS(theme.base.palette.warning.contrastText)};
     }
 
     .danger {
-      background-color: #f44336;
-      color: white;
+      background-color: ${unsafeCSS(theme.base.palette.error.main)};
+      color: ${unsafeCSS(theme.base.palette.error.contrastText)};
     }
 
     .info {
-      background-color: #2196f3;
-      color: white;
+      background-color: ${unsafeCSS(theme.base.palette.info.main)};
+      color: ${unsafeCSS(theme.base.palette.info.contrastText)};
     }
 
     .neutral {
-      background-color: #9e9e9e;
-      color: white;
+      background-color: ${unsafeCSS(theme.base.palette.grey[500])};
+      color: ${unsafeCSS(theme.base.palette.primary.contrastText)};
     }
 
     .small {
