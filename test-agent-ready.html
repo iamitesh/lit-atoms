@@ -140,14 +140,22 @@
       eventCount++;
       const entry = document.createElement('div');
       entry.className = 'event-entry';
-      entry.innerHTML = `
-        <strong>#${eventCount}</strong> 
-        <span class="event-type">${e.detail.type}</span> - 
-        ${e.detail.component}${e.detail.id ? '#' + e.detail.id : ''} 
-        [${e.detail.actor}]
-        <br>
-        <pre>${JSON.stringify(e.detail.payload, null, 2)}</pre>
-      `;
+      
+      // Safely create elements to avoid XSS
+      const header = document.createElement('div');
+      header.innerHTML = `<strong>#${eventCount}</strong> <span class="event-type">${e.detail.type}</span>`;
+      
+      const details = document.createElement('span');
+      details.textContent = ` - ${e.detail.component}${e.detail.id ? '#' + e.detail.id : ''} [${e.detail.actor}]`;
+      header.appendChild(details);
+      
+      const payload = document.createElement('pre');
+      payload.textContent = JSON.stringify(e.detail.payload, null, 2);
+      
+      entry.appendChild(header);
+      entry.appendChild(document.createElement('br'));
+      entry.appendChild(payload);
+      
       eventLog.appendChild(entry);
       eventLog.scrollTop = eventLog.scrollHeight;
     });

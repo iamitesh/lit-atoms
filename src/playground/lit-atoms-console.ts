@@ -192,17 +192,19 @@ export class LitAtomsConsole extends LitElement {
   private renderEvent(entry: AtomEventEntry) {
     const { event } = entry;
     const typeClass = this.getEventTypeClass(event.type);
+    const componentText = `${event.component}${event.id ? `#${event.id}` : ''}`;
+    const payloadJson = event.payload ? JSON.stringify(event.payload, null, 2) : '';
     
     return html`
       <div class="event-entry">
         <div class="event-header">
           <span class="event-seq">#${entry.seq}</span>
           <span class="event-type ${typeClass}">${event.type}</span>
-          <span class="event-component">${event.component}${event.id ? `#${event.id}` : ''}</span>
+          <span class="event-component">${componentText}</span>
           <span class="event-actor">[${event.actor}]</span>
         </div>
-        ${event.payload
-          ? html`<div class="event-payload">${JSON.stringify(event.payload, null, 2)}</div>`
+        ${payloadJson
+          ? html`<div class="event-payload">${payloadJson}</div>`
           : ''
         }
       </div>

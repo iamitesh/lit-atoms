@@ -81,7 +81,9 @@ export function a11yCheckLabeling(
   // For inputs, check for associated label element
   let hasAssociatedLabel = false;
   if (element.id && target.tagName === 'INPUT') {
-    const label = document.querySelector(`label[for="${element.id}"]`);
+    // Escape ID for safe selector usage
+    const escapedId = CSS.escape(element.id);
+    const label = document.querySelector(`label[for="${escapedId}"]`);
     hasAssociatedLabel = !!label;
   }
   

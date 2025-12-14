@@ -239,13 +239,14 @@ export class LitInputField extends LitElement implements AtomAgentReady {
         }
       });
       
-      // Emit action event
+      // Emit action event with redacted params for sensitive fields
+      const sensitive = this.dataset.sensitive === 'true';
       emitAtomEvent(this, {
         type: 'atoms.action',
         actor: context.actor,
         payload: {
           actionId: 'setValue',
-          params,
+          params: sensitive ? { value: '[REDACTED]' } : params,
           result: { ok: true }
         }
       });
