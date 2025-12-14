@@ -94,10 +94,26 @@ export function createThemeFromBase(
 // Re-export types and utilities
 export type {
   BaseTheme,
+  Palette,
+  Typography,
+  TypographyStyle,
+  Spacing,
+  Shadows,
+  BorderRadius,
+  Breakpoints,
+  Transitions,
+  ZIndex,
 } from './base.js';
 
 export type {
   ComponentTheme,
+  ButtonTheme,
+  InputFieldTheme,
+  CardTheme,
+  BadgeTheme,
+  AlertTheme,
+  ModalTheme,
+  ChipTheme,
 } from './components.js';
 
 export type {
@@ -111,8 +127,11 @@ export {
 
 export {
   defaultComponentTheme,
+  createComponentTheme,
 } from './components.js';
 
-export * from './base.js';
-export * from './components.js';
-export * from './overrides.js';
+export {
+  deepMerge,
+  applyOverrides,
+  generateCSSVariables,
+} from './overrides.js';
