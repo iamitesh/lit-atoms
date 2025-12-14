@@ -1,0 +1,161 @@
+# Example GitHub Actions Workflow for Figma Token Sync
+# 
+# This workflow demonstrates how to automate Figma token synchronization
+# in your CI/CD pipeline. Copy this file to .github/workflows/ to use it.
+#
+# Usage:
+# 1. Copy to .github/workflows/sync-figma-tokens.yml
+# 2. Add FIGMA_ACCESS_TOKEN and FIGMA_FILE_KEY as repository secrets
+# 3. Enable the workflow in your repository settings
+
+name: Sync Figma Design Tokens
+
+# Trigger options:
+on:
+  # Manual trigger - run on demand
+  workflow_dispatch:
+    inputs:
+      sync_mode:
+        description: 'Sync mode'
+        required: false
+        default: 'sync-and-build'
+        type: choice
+        options:
+          - sync-and-build
+          - sync
+          - build
+  
+  # Scheduled trigger - run daily at 2 AM UTC
+  schedule:
+    - cron: '0 2 * * *'
+  
+  # Trigger on specific file changes
+  # push:
+  #   paths:
+  #     - 'tokens/**'
+  #     - 'config/style-dictionary.config.mjs'
+
+jobs:
+  sync-tokens:
+    name: Sync Figma Tokens
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      # Step 2: Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm ci
+      
+      # Step 4: Sync tokens from Figma
+      - name: Sync tokens from Figma
+        env:
+          FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
+          FIGMA_FILE_KEY: ${{ secrets.FIGMA_FILE_KEY }}
+        run: |
+          echo "Syncing tokens from Figma..."
+          npm run tokens:sync
+      
+      # Step 5: Build Style Dictionary
+      - name: Build Style Dictionary
+        run: |
+          echo "Building Style Dictionary tokens..."
+          npm run tokens:build
+      
+      # Step 6: Run integration tests
+      - name: Validate integration
+        run: |
+          echo "Running integration tests..."
+          npm run tokens:test
+      
+      # Step 7: Check for changes
+      - name: Check for token changes
+        id: check_changes
+        run: |
+          if [[ -n $(git status --porcelain tokens/ build/tokens/) ]]; then
+            echo "changes=true" >> $GITHUB_OUTPUT
+            echo "Token changes detected"
+          else
+            echo "changes=false" >> $GITHUB_OUTPUT
+            echo "No token changes detected"
+          fi
+      
+      # Step 8: Commit and push changes (if any)
+      - name: Commit and push changes
+        if: steps.check_changes.outputs.changes == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add tokens/ build/tokens/
+          git commit -m "chore: update design tokens from Figma [automated]"
+          git push
+      
+      # Step 9: Create summary
+      - name: Create summary
+        if: always()
+        run: |
+          echo "## Figma Token Sync Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Status:** ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Changes:** ${{ steps.check_changes.outputs.changes }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Token Files" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          ls -lh tokens/*/*.json >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Build Output" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          ls -lh build/tokens/*/*.* >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+      
+      # Step 10: Upload artifacts (optional)
+      - name: Upload token artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: design-tokens
+          path: |
+            build/tokens/
+            tokens/
+          retention-days: 30
+
+  # Optional: Create a pull request instead of direct commit
+  # sync-tokens-pr:
+  #   name: Sync Figma Tokens (PR)
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: actions/setup-node@v4
+  #       with:
+  #         node-version: '20'
+  #     - run: npm ci
+  #     - name: Sync and build tokens
+  #       env:
+  #         FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
+  #         FIGMA_FILE_KEY: ${{ secrets.FIGMA_FILE_KEY }}
+  #       run: |
+  #         npm run figma:sync
+  #     - name: Create Pull Request
+  #       uses: peter-evans/create-pull-request@v6
+  #       with:
+  #         token: ${{ secrets.GITHUB_TOKEN }}
+  #         commit-message: 'chore: update design tokens from Figma'
+  #         title: '🎨 Update Design Tokens from Figma'
+  #         body: |
+  #           Automated token sync from Figma.
+  #           
+  #           Please review the changes and merge if they look correct.
+  #         branch: automated/figma-token-sync
+  #         delete-branch: true
