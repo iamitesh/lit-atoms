@@ -22,7 +22,7 @@ export class LitModal extends LitElement {
       align-items: center;
       justify-content: center;
       z-index: ${unsafeCSS(theme.base.zIndex.modal)};
-      animation: fadeIn ${unsafeCSS(theme.base.transitions.duration.short)}ms ease-out;
+      animation: fadeIn ${unsafeCSS(theme.base.transitions.duration.short)}ms ${unsafeCSS(theme.base.transitions.easing.easeOut)};
     }
 
     @keyframes fadeIn {
@@ -42,7 +42,7 @@ export class LitModal extends LitElement {
       max-height: 90vh;
       overflow: auto;
       box-shadow: ${unsafeCSS(theme.base.shadows.xl)};
-      animation: slideDown ${unsafeCSS(theme.base.transitions.duration.standard)}ms ease-out;
+      animation: slideDown ${unsafeCSS(theme.base.transitions.duration.standard)}ms ${unsafeCSS(theme.base.transitions.easing.easeOut)};
     }
 
     @keyframes slideDown {

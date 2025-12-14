@@ -48,7 +48,7 @@ export class LitBadge extends LitElement {
 
     .neutral {
       background-color: ${unsafeCSS(theme.base.palette.grey[500])};
-      color: ${unsafeCSS(theme.base.palette.primary.contrastText)};
+      color: ${unsafeCSS(theme.base.palette.grey[50])};
     }
 
     .small {

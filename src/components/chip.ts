@@ -19,7 +19,7 @@ export class LitChip extends LitElement {
       border-radius: ${unsafeCSS(theme.base.borderRadius.full)};
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: ${unsafeCSS(theme.base.spacing.xs)};
       background-color: ${unsafeCSS(theme.base.palette.grey[300])};
       color: ${unsafeCSS(theme.base.palette.text.primary)};
     }
