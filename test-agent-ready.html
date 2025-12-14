@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agent-Ready Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    h1 {
+      color: #1ea7fd;
+    }
+    
+    .test-section {
+      margin: 30px 0;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+    
+    .test-section h2 {
+      margin-top: 0;
+      color: #333;
+    }
+    
+    .event-log {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 15px;
+      border-radius: 4px;
+      font-family: 'Consolas', monospace;
+      font-size: 13px;
+      max-height: 400px;
+      overflow-y: auto;
+      margin-top: 20px;
+    }
+    
+    .event-entry {
+      padding: 5px 0;
+      border-bottom: 1px solid #333;
+    }
+    
+    .event-type {
+      font-weight: bold;
+      color: #4ec9b0;
+    }
+    
+    .controls {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+    
+    button {
+      padding: 8px 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>🤖 Agent-Ready Capability Test</h1>
+  
+  <div class="test-section">
+    <h2>Test 1: Button with Semantics</h2>
+    <p>This button has semantic attributes for agent understanding:</p>
+    
+    <lit-button 
+      id="testBtn"
+      label="Submit Order" 
+      variant="primary"
+      data-intent="submit"
+      data-entity="order"
+      data-action="create"
+    ></lit-button>
+    
+    <div class="controls">
+      <button onclick="testButtonState()">Get Button State</button>
+      <button onclick="testButtonActions()">Get Button Actions</button>
+      <button onclick="testButtonInvoke()">Invoke Click (Agent)</button>
+    </div>
+  </div>
+  
+  <div class="test-section">
+    <h2>Test 2: Input Field</h2>
+    <p>Input field with semantic attributes:</p>
+    
+    <lit-input-field
+      id="testInput"
+      label="Email Address"
+      type="email"
+      placeholder="Enter your email"
+      data-field="email"
+      data-purpose="authentication"
+      data-intent="login"
+    ></lit-input-field>
+    
+    <div class="controls">
+      <button onclick="testInputState()">Get Input State</button>
+      <button onclick="testInputActions()">Get Input Actions</button>
+      <button onclick="testInputSetValue()">Set Value (Agent)</button>
+      <button onclick="testInputClear()">Clear (Agent)</button>
+    </div>
+  </div>
+  
+  <div class="test-section">
+    <h2>Test 3: Sensitive Data</h2>
+    <p>Password field with data-sensitive="true" - values will be redacted in events:</p>
+    
+    <lit-input-field
+      id="passwordInput"
+      label="Password"
+      type="password"
+      data-field="password"
+      data-sensitive="true"
+    ></lit-input-field>
+  </div>
+  
+  <div class="test-section">
+    <h2>Atoms Event Log</h2>
+    <p>All atoms:event emissions are captured here:</p>
+    <div id="eventLog" class="event-log"></div>
+    <button onclick="clearEventLog()" style="margin-top: 10px;">Clear Log</button>
+  </div>
+
+  <script type="module">
+    import './src/components/button.js';
+    import './src/components/input-field.js';
+    
+    // Event logging
+    const eventLog = document.getElementById('eventLog');
+    let eventCount = 0;
+    
+    document.addEventListener('atoms:event', (e) => {
+      eventCount++;
+      const entry = document.createElement('div');
+      entry.className = 'event-entry';
+      entry.innerHTML = `
+        <strong>#${eventCount}</strong> 
+        <span class="event-type">${e.detail.type}</span> - 
+        ${e.detail.component}${e.detail.id ? '#' + e.detail.id : ''} 
+        [${e.detail.actor}]
+        <br>
+        <pre>${JSON.stringify(e.detail.payload, null, 2)}</pre>
+      `;
+      eventLog.appendChild(entry);
+      eventLog.scrollTop = eventLog.scrollHeight;
+    });
+    
+    // Test functions
+    window.testButtonState = () => {
+      const btn = document.getElementById('testBtn');
+      const state = btn.getState();
+      console.log('Button State:', state);
+      alert(JSON.stringify(state, null, 2));
+    };
+    
+    window.testButtonActions = () => {
+      const btn = document.getElementById('testBtn');
+      const actions = btn.getActions();
+      console.log('Button Actions:', actions);
+      alert(JSON.stringify(actions, null, 2));
+    };
+    
+    window.testButtonInvoke = async () => {
+      const btn = document.getElementById('testBtn');
+      const result = await btn.invokeAction('click', null, { actor: 'agent' });
+      console.log('Invoke Result:', result);
+      alert(JSON.stringify(result, null, 2));
+    };
+    
+    window.testInputState = () => {
+      const input = document.getElementById('testInput');
+      const state = input.getState();
+      console.log('Input State:', state);
+      alert(JSON.stringify(state, null, 2));
+    };
+    
+    window.testInputActions = () => {
+      const input = document.getElementById('testInput');
+      const actions = input.getActions();
+      console.log('Input Actions:', actions);
+      alert(JSON.stringify(actions, null, 2));
+    };
+    
+    window.testInputSetValue = async () => {
+      const input = document.getElementById('testInput');
+      const result = await input.invokeAction('setValue', 
+        { value: 'test@example.com' }, 
+        { actor: 'agent' }
+      );
+      console.log('Set Value Result:', result);
+    };
+    
+    window.testInputClear = async () => {
+      const input = document.getElementById('testInput');
+      const result = await input.invokeAction('clear', null, { actor: 'agent' });
+      console.log('Clear Result:', result);
+    };
+    
+    window.clearEventLog = () => {
+      eventLog.innerHTML = '';
+      eventCount = 0;
+    };
+    
+    console.log('✅ Agent-Ready Test Page Loaded');
+    console.log('Interact with components to see atoms:event emissions');
+  </script>
+</body>
+</html>
