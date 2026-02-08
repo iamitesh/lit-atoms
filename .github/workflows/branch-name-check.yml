@@ -14,9 +14,9 @@ jobs:
           echo "Checking branch name: $BRANCH"
           
           # Define valid patterns
-          # Pattern 1: story/bug/enabler/hotfix with optional numeric ID
-          # Examples: story/123-add-button, bug/fix-hover, enabler/upgrade-deps, hotfix/5.6.3-fix-build
-          PATTERN1="^(story|bug|enabler|hotfix)\/([0-9.-]+-)?[a-z0-9.-]+$"
+          # Pattern 1: story/bug/enabler/hotfix/copilot/feature with optional numeric ID
+          # Examples: story/123-add-button, bug/fix-hover, enabler/upgrade-deps, hotfix/5.6.3-fix-build, copilot/add-feature, feature/new-component
+          PATTERN1="^(story|bug|enabler|hotfix|copilot|feature)\/([0-9.-]+-)?[a-z0-9.-]+$"
           
           # Pattern 2: release branches
           # Example: release/5.6.x
@@ -38,6 +38,8 @@ jobs:
             echo "  - bug/[ID-]description      (e.g., bug/456-fix-hover or bug/fix-hover)"
             echo "  - enabler/[ID-]description  (e.g., enabler/789-upgrade-deps)"
             echo "  - hotfix/[ID-]description   (e.g., hotfix/5.6.3-fix-build)"
+            echo "  - copilot/[ID-]description  (e.g., copilot/add-feature or copilot/123-new-task)"
+            echo "  - feature/[ID-]description  (e.g., feature/new-component or feature/456-add-ui)"
             echo "  - release/X.Y.x             (e.g., release/5.6.x)"
             echo "  - stable/X.n.0              (e.g., stable/5.n.0)"
             echo ""

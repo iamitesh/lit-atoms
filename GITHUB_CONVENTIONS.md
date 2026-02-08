@@ -73,6 +73,8 @@ Use the pattern: `type/short-description` with numeric IDs when available.
 | `bug/` | Bug fixes | `bug/[ID]-description` |
 | `enabler/` | Technical improvements | `enabler/[ID]-description` |
 | `hotfix/` | Urgent fixes from stable | `hotfix/[version]-description` |
+| `copilot/` | Copilot-assisted development | `copilot/[ID]-description` |
+| `feature/` | Feature development | `feature/[ID]-description` |
 | `release/` | Release branch lines | `release/X.Y.x` |
 | `stable/` | Stable long-lived branches | `stable/X.n.0` |
 
@@ -85,11 +87,12 @@ Use the pattern: `type/short-description` with numeric IDs when available.
 ✅ bug/calendar-date-picker-crash
 ✅ enabler/3456-upgrade-rollup
 ✅ enabler/refactor-theme-system
+✅ copilot/add-feature
+✅ feature/new-component
 ✅ hotfix/5.6.3-fix-build
 ✅ release/5.6.x
 ✅ stable/5.n.0
 
-❌ feature/new-button (use 'story/')
 ❌ fix-bug (missing type)
 ❌ TICKET-1234 (wrong format)
 ❌ john-working (not descriptive)
@@ -102,7 +105,7 @@ Use the pattern: `type/short-description` with numeric IDs when available.
 **Final Rules:**
 
 1. **Default to Squash Merges**
-   - All feature branches (`story/`, `bug/`, `enabler/`, `hotfix/`) are squashed into a single commit
+   - All feature branches (`story/`, `bug/`, `enabler/`, `hotfix/`, `copilot/`, `feature/`) are squashed into a single commit
    - PR title becomes the commit message
    - Keeps history clean and linear
 
@@ -168,9 +171,10 @@ Use the pattern: `type/short-description` with numeric IDs when available.
 **Process:**
 
 1. **Normal Development**
-   - Develop features in `story/` branches off `main`
+   - Develop features in `story/` or `feature/` branches off `main`
    - Fix bugs in `bug/` branches off `main`
    - Technical improvements in `enabler/` branches off `main`
+   - Copilot-assisted tasks in `copilot/` branches off `main`
    - Merge to `main` via squash merge after PR approval
 
 2. **Preparing a Release**

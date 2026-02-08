@@ -22,6 +22,8 @@ We use a structured branch naming convention to maintain clarity and enable auto
 | `bug/` | Bug fixes | `bug/2345-fix-hover-color` |
 | `enabler/` | Technical improvements, refactoring, tech debt | `enabler/3456-upgrade-rollup` |
 | `hotfix/` | Urgent fixes off stable branches | `hotfix/5.6.3-fix-build` |
+| `copilot/` | Copilot-assisted development tasks | `copilot/add-feature` |
+| `feature/` | Feature development branches | `feature/new-component` |
 | `release/` | Release branch lines | `release/5.6.x` |
 | `stable/` | Stable long-lived branches | `stable/5.n.0` |
 
@@ -33,13 +35,14 @@ story/1234-add-icon-button
 bug/2345-fix-hover-color
 enabler/3456-upgrade-rollup
 hotfix/5.6.3-fix-build
+copilot/add-feature
+feature/new-component
 story/add-tooltip-component
 bug/calendar-date-picker-crash
 ```
 
 ❌ **Bad Examples:**
 ```
-feature/new-button (use 'story/')
 fix-bug (missing type and description)
 john-working-branch (not descriptive)
 TICKET-1234 (wrong format)
