@@ -96,6 +96,72 @@ test.describe('Microfrontend Integration Tests', () => {
     await page.screenshot({ path: 'tests/microfrontend/screenshots/04-next-playground.png', fullPage: true });
   });
 
+  test('Angular playground loads in shell', async ({ page }) => {
+    // Click Angular navigation
+    await page.click('text=🅰️ Angular');
+    
+    // Wait for Angular component to load
+    await page.waitForTimeout(2000);
+    
+    // Check if Angular widget loaded
+    const angularWidget = page.locator('text=Angular Widget Component');
+    await expect(angularWidget).toBeVisible({ timeout: 10000 });
+    
+    // Check if token is displayed in widget
+    await expect(page.locator('code:has-text("demo-token-123")')).toBeVisible();
+    
+    // Test counter functionality
+    const counterValue = page.locator('.counter-demo strong');
+    await expect(counterValue).toContainText('0');
+    
+    // Click increment button
+    await page.click('text=Increment');
+    await expect(counterValue).toContainText('1');
+    
+    // Click decrement button
+    await page.click('text=Decrement');
+    await expect(counterValue).toContainText('0');
+    
+    // Take screenshot
+    await page.screenshot({ path: 'tests/microfrontend/screenshots/04-angular-playground.png', fullPage: true });
+  });
+
+  test('All 3 playgrounds open from shell successfully', async ({ page }) => {
+    // Test React Playground
+    await page.click('text=⚛️ React');
+    await page.waitForTimeout(2000);
+    await expect(page.locator('text=React Widget Component')).toBeVisible({ timeout: 10000 });
+    await expect(page.locator('code:has-text("demo-token-123")')).toBeVisible();
+    console.log('✅ React playground loaded successfully');
+    
+    // Navigate back to home
+    await page.click('text=🏠 Home');
+    await page.waitForTimeout(500);
+    
+    // Test Angular Playground
+    await page.click('text=🅰️ Angular');
+    await page.waitForTimeout(2000);
+    await expect(page.locator('text=Angular Widget Component')).toBeVisible({ timeout: 10000 });
+    await expect(page.locator('code:has-text("demo-token-123")')).toBeVisible();
+    console.log('✅ Angular playground loaded successfully');
+    
+    // Navigate back to home
+    await page.click('text=🏠 Home');
+    await page.waitForTimeout(500);
+    
+    // Test Next.js Playground
+    await page.click('text=▲ Next.js');
+    await page.waitForTimeout(2000);
+    await expect(page.locator('text=Next.js Widget Component')).toBeVisible({ timeout: 10000 });
+    await expect(page.locator('code:has-text("demo-token-123")')).toBeVisible();
+    console.log('✅ Next.js playground loaded successfully');
+    
+    // Take final screenshot showing all playgrounds work
+    await page.screenshot({ path: 'tests/microfrontend/screenshots/05-all-playgrounds-verified.png', fullPage: true });
+    
+    console.log('✅✅✅ All 3 playgrounds opened successfully from shell!');
+  });
+
   test('Navigation between playgrounds works without page reload', async ({ page }) => {
     let navigationCount = 0;
     
@@ -172,14 +238,18 @@ test.describe('Microfrontend Integration Tests', () => {
     await page.screenshot({ path: 'tests/microfrontend/screenshots/08-next-standalone.png', fullPage: true });
   });
 
-  test('Error handling when playground is not available', async ({ page }) => {
-    // Navigate to Angular (which is not running)
+  test.skip('Error handling when playground is not available', async ({ page }) => {
+    // This test is skipped when all playgrounds are running
+    // It tests error handling when Angular is NOT running
+    // To test error handling, stop the Angular playground and remove .skip
+    
+    // Navigate to Angular (when it's not running)
     await page.click('text=🅰️ Angular');
     await page.waitForTimeout(2000);
     
     // Check if error message is displayed
-    await expect(page.locator('text=Angular MFE Not Available')).toBeVisible({ timeout: 10000 });
-    await expect(page.locator('text=Make sure the Angular microfrontend is running')).toBeVisible();
+    await expect(page.locator('text=Angular Playground Not Available')).toBeVisible({ timeout: 10000 });
+    await expect(page.locator('text=Make sure the Angular playground is running')).toBeVisible();
     
     // Take screenshot
     await page.screenshot({ path: 'tests/microfrontend/screenshots/09-error-handling.png', fullPage: true });
