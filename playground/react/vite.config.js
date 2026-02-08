@@ -6,21 +6,21 @@ export default defineConfig({
   plugins: [
     react(),
     federation({
-      name: 'shell',
-      remotes: {
-        playgroundReact: 'http://localhost:3001/assets/remoteEntry.js',
-        playgroundAngular: 'http://localhost:3002/remoteEntry.js',
-        playgroundNext: 'http://localhost:3003/assets/remoteEntry.js',
+      name: 'playgroundReact',
+      filename: 'remoteEntry.js',
+      exposes: {
+        './Widget': './src/Widget.jsx',
       },
       shared: ['react', 'react-dom'],
     }),
   ],
   server: {
-    port: 3000,
+    port: 3001,
     strictPort: true,
+    cors: true,
   },
   preview: {
-    port: 3000,
+    port: 3001,
   },
   build: {
     target: 'esnext',

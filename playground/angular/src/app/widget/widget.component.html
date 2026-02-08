@@ -1,0 +1,53 @@
+<div class="widget">
+  <div class="widget-header">
+    <h2>Angular Widget Component</h2>
+    <span class="badge">Federated Module</span>
+  </div>
+  
+  <div class="widget-content">
+    <div class="info-section">
+      <h3>🔐 Authentication</h3>
+      <div class="token-display">
+        <strong>Demo Token:</strong>
+        <code>{{ token }}</code>
+      </div>
+      <p class="info-text">
+        This token is shared across all microfrontends via localStorage
+      </p>
+    </div>
+
+    <div class="info-section">
+      <h3>🎯 Interactive Demo</h3>
+      <div class="counter-demo">
+        <p>Counter: <strong>{{ counter }}</strong></p>
+        <div class="button-group">
+          <button (click)="increment()" class="btn btn-primary">
+            Increment
+          </button>
+          <button (click)="decrement()" class="btn btn-secondary">
+            Decrement
+          </button>
+          <button (click)="reset()" class="btn btn-tertiary">
+            Reset
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h3>📦 Module Federation Info</h3>
+      <ul class="info-list">
+        <li><strong>Remote Name:</strong> playgroundAngular</li>
+        <li><strong>Exposed Module:</strong> ./Widget</li>
+        <li><strong>Port:</strong> 3002</li>
+        <li><strong>Framework:</strong> Angular 17</li>
+      </ul>
+    </div>
+
+    <div class="info-section success">
+      <h3>✅ Status</h3>
+      <p>Angular playground is running successfully!</p>
+      <p class="small-text">This component can be used standalone or loaded dynamically by the shell app.</p>
+    </div>
+  </div>
+</div>
