@@ -185,6 +185,37 @@ const theme = {
 };
 ```
 
+## Contributing
+
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details on:
+
+- Branch naming conventions
+- Development workflow
+- Pull request process
+- Release process
+- Code quality standards
+
+For GitHub conventions and automation setup, see [GITHUB_CONVENTIONS.md](GITHUB_CONVENTIONS.md).
+
+### Quick Start for Contributors
+
+1. Fork the repository
+2. Create a feature branch following our naming convention:
+   - `story/[ID-]description` for features
+   - `bug/[ID-]description` for bug fixes
+   - `enabler/[ID-]description` for technical improvements
+3. Make your changes and test thoroughly
+4. Submit a pull request using our PR template
+
+### Reporting Issues
+
+Found a bug or have a feature request? Please:
+- Check existing issues first
+- Use our [issue templates](.github/ISSUE_TEMPLATE/) for:
+  - Bug reports
+  - Feature requests
+  - Technical improvements
+
 ## License
 
 ISC
