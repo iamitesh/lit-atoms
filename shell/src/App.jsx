@@ -41,7 +41,7 @@ function App() {
               <div className="error">
                 <h3>React Playground Not Available</h3>
                 <p>Make sure the React playground is running on port 3001</p>
-                <code>cd playgrounds/react && npm run dev</code>
+                <code>cd playground/react && npm run dev</code>
               </div>
             }
           />
@@ -56,7 +56,7 @@ function App() {
               <div className="error">
                 <h3>Angular Playground Not Available</h3>
                 <p>Make sure the Angular playground is running on port 3002</p>
-                <code>cd playgrounds/angular && npm run dev</code>
+                <code>cd playground/angular && npm run dev</code>
               </div>
             }
           />
@@ -71,7 +71,7 @@ function App() {
               <div className="error">
                 <h3>Next.js Playground Not Available</h3>
                 <p>Make sure the Next.js playground is running on port 3003</p>
-                <code>cd playgrounds/next && npm run dev</code>
+                <code>cd playground/next && npm run dev</code>
               </div>
             }
           />
