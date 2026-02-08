@@ -231,7 +231,7 @@ Tests verify:
 - **Federation**: Exposes `./Widget` component
 
 ### Angular Playground
-- **Framework**: Angular 17
+- **Framework**: Angular 19
 - **Build Tool**: Angular CLI + Webpack
 - **Federation**: `@angular-architects/module-federation`
 - **Exposes**: `./Widget` component
@@ -248,6 +248,10 @@ Tests verify:
 This is a demonstration project with simplified security:
 
 - ✅ **No iframes**: Reduces XSS attack surface
+- ✅ **Updated Angular**: Uses Angular 19.2.18+ with critical security patches
+  - Fixed XSRF Token Leakage via Protocol-Relative URLs
+  - Fixed XSS Vulnerability via Unsanitized SVG Script Attributes
+  - Fixed Stored XSS Vulnerability via SVG Animation, SVG URL and MathML Attributes
 - ⚠️ **localStorage tokens**: Demo only - not production-ready
 - ⚠️ **No CSP headers**: Add Content Security Policy for production
 - ⚠️ **CORS**: Currently permissive for local development
