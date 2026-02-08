@@ -182,6 +182,72 @@ Each component is fully documented in Storybook with interactive controls. Run `
 - **TypeScript** - Type-safe development
 - **Storybook** - Component documentation and testing
 - **Vite** - Fast build tool
+- **Style Dictionary** - Design token management
+- **Figma API** - Design token synchronization
+
+## Design Tokens & Figma Integration
+
+This library includes a powerful Figma-to-Style Dictionary integration that allows you to sync design tokens directly from Figma with simple prompts!
+
+### Quick Start
+
+```bash
+# Set up your Figma credentials
+cp .env.example .env
+# Edit .env with your FIGMA_ACCESS_TOKEN and FIGMA_FILE_KEY
+
+# Sync tokens from Figma
+npm run figma:sync
+
+# Or use natural language prompts
+npm run figma:sync "update tokens from figma"
+```
+
+### Features
+
+✅ **Prompt-based sync** - Use natural language to trigger token updates  
+✅ **Figma API integration** - Fetch tokens directly from Figma files  
+✅ **Style Dictionary** - Generate CSS, JS, TS, and JSON from tokens  
+✅ **WSL compatible** - Works seamlessly on Windows Subsystem for Linux  
+✅ **Multiple formats** - Output tokens as CSS variables, ES6 modules, TypeScript, or JSON  
+✅ **Automatic merging** - Combines Figma tokens with manual base tokens  
+
+### Available Commands
+
+```bash
+npm run figma:sync          # Prompt-based interface
+npm run figma:status        # Check configuration
+npm run tokens:sync         # Sync from Figma
+npm run tokens:build        # Build Style Dictionary
+```
+
+### Documentation
+
+- [Figma Integration Quick Start](./docs/FIGMA_QUICK_START.md)
+- [Figma Integration Full Guide](./docs/FIGMA_INTEGRATION.md)
+- [Theme System Documentation](./src/theme/README.md)
+
+### Using Design Tokens
+
+```css
+/* CSS Variables */
+@import '../build/tokens/css/variables.css';
+
+.button {
+  background: var(--color-primary-main);
+  padding: var(--spacing-md);
+}
+```
+
+```javascript
+// JavaScript/TypeScript
+import tokens from '../build/tokens/js/tokens.js';
+
+const theme = {
+  primaryColor: tokens.color.primary.main,
+  spacing: tokens.spacing.md,
+};
+```
 
 ## License
 

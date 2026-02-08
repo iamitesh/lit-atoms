@@ -1,5 +1,8 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css, unsafeCSS } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { defaultTheme } from '../theme/index.js';
+
+const theme = defaultTheme;
 
 @customElement('lit-alert')
 export class LitAlert extends LitElement {
@@ -9,13 +12,14 @@ export class LitAlert extends LitElement {
     }
 
     .alert {
-      font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      padding: 16px;
-      border-radius: 4px;
+      font-family: ${unsafeCSS(theme.base.typography.fontFamily)};
+      padding: ${unsafeCSS(theme.base.spacing.md)};
+      border-radius: ${unsafeCSS(theme.base.borderRadius.sm)};
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
+      border-left: 4px solid;
     }
 
     .alert-content {
@@ -44,32 +48,32 @@ export class LitAlert extends LitElement {
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 4px;
-      transition: background-color 0.2s;
+      border-radius: ${unsafeCSS(theme.base.borderRadius.sm)};
+      transition: background-color ${unsafeCSS(theme.base.transitions.duration.short)}ms;
     }
 
     .alert.info {
-      background-color: #e3f2fd;
-      color: #0277bd;
-      border-left: 4px solid #0277bd;
+      background-color: ${unsafeCSS(theme.base.palette.info.light)}33;
+      border-left-color: ${unsafeCSS(theme.base.palette.info.main)};
+      color: ${unsafeCSS(theme.base.palette.info.dark)};
     }
 
     .alert.success {
-      background-color: #e8f5e9;
-      color: #2e7d32;
-      border-left: 4px solid #2e7d32;
+      background-color: ${unsafeCSS(theme.base.palette.success.light)}33;
+      border-left-color: ${unsafeCSS(theme.base.palette.success.main)};
+      color: ${unsafeCSS(theme.base.palette.success.dark)};
     }
 
     .alert.warning {
-      background-color: #fff3e0;
-      color: #e65100;
-      border-left: 4px solid #e65100;
+      background-color: ${unsafeCSS(theme.base.palette.warning.light)}33;
+      border-left-color: ${unsafeCSS(theme.base.palette.warning.main)};
+      color: ${unsafeCSS(theme.base.palette.warning.dark)};
     }
 
     .alert.error {
-      background-color: #ffebee;
-      color: #c62828;
-      border-left: 4px solid #c62828;
+      background-color: ${unsafeCSS(theme.base.palette.error.light)}33;
+      border-left-color: ${unsafeCSS(theme.base.palette.error.main)};
+      color: ${unsafeCSS(theme.base.palette.error.dark)};
     }
 
     .alert-close:hover {

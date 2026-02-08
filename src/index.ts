@@ -35,3 +35,6 @@ export { LitMenu } from './components/menu.js';
 export { LitForm } from './components/form.js';
 export { LitLink } from './components/link.js';
 export { LitList } from './components/list.js';
+
+// Export theme system
+export * from './theme/index.js';

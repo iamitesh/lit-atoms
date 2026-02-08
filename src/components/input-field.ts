@@ -1,5 +1,8 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css, unsafeCSS } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { defaultTheme } from '../theme/index.js';
+
+const theme = defaultTheme;
 
 @customElement('lit-input-field')
 export class LitInputField extends LitElement {
@@ -15,43 +18,43 @@ export class LitInputField extends LitElement {
     }
 
     label {
-      font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 14px;
-      font-weight: 600;
-      color: #333;
+      font-family: ${unsafeCSS(theme.base.typography.fontFamily)};
+      font-size: ${unsafeCSS(theme.base.typography.body2.fontSize)};
+      font-weight: ${unsafeCSS(theme.base.typography.fontWeightMedium)};
+      color: ${unsafeCSS(theme.base.palette.text.primary)};
     }
 
     input {
-      font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 14px;
-      padding: 10px 12px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
+      font-family: ${unsafeCSS(theme.base.typography.fontFamily)};
+      font-size: ${unsafeCSS(theme.base.typography.body1.fontSize)};
+      padding: ${unsafeCSS(theme.base.spacing.sm)} ${unsafeCSS(theme.base.spacing.md)};
+      border: 1px solid ${unsafeCSS(theme.base.palette.grey[300])};
+      border-radius: ${unsafeCSS(theme.base.borderRadius.sm)};
       outline: none;
-      transition: border-color 0.2s;
+      transition: border-color ${unsafeCSS(theme.base.transitions.duration.short)}ms;
     }
 
     input:focus {
-      border-color: #1ea7fd;
+      border-color: ${unsafeCSS(theme.base.palette.primary.main)};
     }
 
     input:disabled {
-      background-color: #f5f5f5;
+      background-color: ${unsafeCSS(theme.base.palette.grey[100])};
       cursor: not-allowed;
     }
 
     input.error {
-      border-color: #ff4444;
+      border-color: ${unsafeCSS(theme.base.palette.error.main)};
     }
 
     .helper-text {
-      font-size: 12px;
-      color: #666;
+      font-size: ${unsafeCSS(theme.base.typography.caption.fontSize)};
+      color: ${unsafeCSS(theme.base.palette.text.secondary)};
     }
 
     .error-text {
-      font-size: 12px;
-      color: #ff4444;
+      font-size: ${unsafeCSS(theme.base.typography.caption.fontSize)};
+      color: ${unsafeCSS(theme.base.palette.error.main)};
     }
   `;
 
