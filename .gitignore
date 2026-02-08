@@ -6,7 +6,8 @@ package-lock.json
 dist/
 storybook-static/
 playground-dist/
-build/
+wrappers/*/dist/
+wrappers/*/node_modules/
 
 # IDE
 .vscode/
