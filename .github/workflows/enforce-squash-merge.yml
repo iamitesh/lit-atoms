@@ -1,0 +1,80 @@
+name: Enforce Squash Merge
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, edited]
+    branches:
+      - main
+
+jobs:
+  check-squash-merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check PR merge strategy
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number
+            });
+            
+            // Get repository settings to check allowed merge methods
+            const { data: repo } = await github.rest.repos.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+            
+            console.log('Repository merge settings:');
+            console.log(`- Allow squash merging: ${repo.allow_squash_merge}`);
+            console.log(`- Allow merge commit: ${repo.allow_merge_commit}`);
+            console.log(`- Allow rebase merging: ${repo.allow_rebase_merge}`);
+            
+            // Check if only squash merge is enabled
+            if (!repo.allow_squash_merge) {
+              core.setFailed('❌ Squash merge is not enabled for this repository. Please enable it in repository settings.');
+              return;
+            }
+            
+            if (repo.allow_merge_commit || repo.allow_rebase_merge) {
+              core.warning('⚠️  Multiple merge methods are enabled. For best practices, only squash merge should be allowed.');
+              console.log('\nRecommendation:');
+              console.log('Go to Settings → General → Pull Requests and:');
+              console.log('- ✅ Enable "Allow squash merging"');
+              console.log('- ❌ Disable "Allow merge commits"');
+              console.log('- ❌ Disable "Allow rebase merging"');
+            } else {
+              console.log('\n✅ Repository is correctly configured to only allow squash merges!');
+            }
+            
+            // Add a comment to the PR if this is the first check
+            const comments = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number
+            });
+            
+            const botComment = comments.data.find(comment => 
+              comment.user.type === 'Bot' && 
+              comment.body.includes('Squash Merge Enforcement')
+            );
+            
+            if (!botComment) {
+              const message = repo.allow_squash_merge && !repo.allow_merge_commit && !repo.allow_rebase_merge
+                ? '✅ **Squash Merge Enforcement**: This repository is correctly configured to enforce squash merges on all PRs to `main`.'
+                : '⚠️  **Squash Merge Enforcement**: This PR targets `main` branch. Please ensure you use "Squash and merge" when merging.\n\n' +
+                  'Repository settings recommendation:\n' +
+                  '- ✅ Enable "Allow squash merging"\n' +
+                  '- ❌ Disable "Allow merge commits"\n' +
+                  '- ❌ Disable "Allow rebase merging"';
+              
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.payload.pull_request.number,
+                body: message
+              });
+            }
+            
+            console.log('\n✅ Check completed successfully');

@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Question or Discussion
+    url: https://github.com/iamitesh/lit-atoms/discussions
+    about: Ask questions or start discussions about the library
+  - name: Documentation
+    url: https://github.com/iamitesh/lit-atoms#readme
+    about: Check out our documentation and guides
