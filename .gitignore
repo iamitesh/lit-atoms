@@ -8,6 +8,8 @@ playground-dist/
 wrappers/*/dist/
 wrappers/*/node_modules/
 build/
+shell/dist/
+playground/*/dist/
 
 # IDE
 .vscode/
@@ -29,6 +31,8 @@ yarn-error.log*
 # Testing
 coverage/
 .nyc_output/
+test-results/
+playwright-report/
 
 # Environment
 .env
